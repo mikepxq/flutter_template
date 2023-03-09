@@ -22,6 +22,9 @@
     fvm dart pub add http
   assets
   screens
+  router
+    参照:https://github.com/flutter/samples/tree/main/navigation_and_routing
+  i18n
   store
 4.ui
 5.基础功能实现

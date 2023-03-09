@@ -1,8 +1,14 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/screens/home.dart';
 import 'package:flutter_template/screens/login.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 void main() {
+  //web hash 路由
+  setHashUrlStrategy();
   runApp(const MyApp());
 }
 

@@ -1,7 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:quiver/core.dart';
+import 'parser.dart'; // 仅给注释高亮来源  [TemplateRouteParser]
 
-/// 被解析过的路由
+/// 被解析过的路由  [TemplateRouteParser]
 
 class ParsedRoute {
   final String path;
@@ -27,7 +28,15 @@ class ParsedRoute {
       other.path == path &&
       _mapEquality.equals(parameters, other.parameters) &&
       _mapEquality.equals(queryParams, other.queryParams);
-// TODO deving
+
   @override
-  int get hashCode => hash4();
+  int get hashCode => hash4(path, pathTemplate, _mapEquality.hash(parameters),
+      _mapEquality..hash(queryParams));
+
+  @override
+  String toString() => '<ParsedRoute '
+      'template: $pathTemplate'
+      'path:$path'
+      'parameters:$parameters'
+      'query params : $queryParams>';
 }

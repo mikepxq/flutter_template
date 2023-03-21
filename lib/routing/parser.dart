@@ -24,6 +24,7 @@ class TemplateRouteParser extends RouteInformationParser<ParsedRoute> {
         _pathTemplates = [...allowedPaths],
         assert(allowedPaths.contains(initialRoute));
 
+  /// 解析出前路由
   @override
   Future<ParsedRoute> parseRouteInformation(
       RouteInformation routeInformation) async {
@@ -36,8 +37,15 @@ class TemplateRouteParser extends RouteInformationParser<ParsedRoute> {
       var pathRegExp = pathToRegExp(pathTemplate, parameters: parameters);
       if (pathRegExp.hasMatch(path)) {
         final match = pathRegExp.matchAsPrefix(path);
+        if (match == null) continue;
+        final params = extract(parameters, match);
+        parsedRoute = ParsedRoute(path, pathTemplate, params, queryParams);
       }
     }
-    // TODO deving
+    var guard = this.guard;
+    if (guard != null) {
+      return guard(parsedRoute);
+    }
+    return parsedRoute;
   }
 }
